@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="nl-BE">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Repetitietracks - Kerstconcert 13 december</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --blauw:#1d2142;
+    --blauw-diep:#141731;
+    --groen:#1fb19b;
+    --geel:#fbbb21;
+    --lichtblauw:#47bfde;
+    --oranje:#ea561f;
+    --paars:#7167aa;
+    --roze:#ee7ba8;
+    --papier:#f5f6f9;
+    --lijn:rgba(29,33,66,.14);
+    --font:'Metropolis','Poppins',Verdana,sans-serif;
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    margin:0;
+    background:var(--papier);
+    color:var(--blauw);
+    font-family:var(--font);
+    font-size:16px;
+    line-height:1.5;
+  }
+  .wrap{max-width:920px;margin:0 auto;padding:0 20px}
+
+  /* ---------- Header ---------- */
+  header{
+    background:var(--blauw);
+    color:#fff;
+    padding:40px 0 34px;
+    position:relative;
+    overflow:hidden;
+  }
+  header .wrap{position:relative;z-index:1}
+  .staff{position:absolute;inset:auto 0 0 0;height:64px;opacity:.16}
+  .staff span{display:block;height:1px;background:#fff;margin-bottom:11px}
+  .eyebrow{
+    font-size:12px;letter-spacing:.18em;text-transform:uppercase;
+    font-weight:600;color:var(--geel);margin:0 0 10px;
+  }
+  h1{font-size:clamp(30px,6vw,46px);line-height:1.05;margin:0;font-weight:700;letter-spacing:-.02em}
+  .intro{margin:14px 0 0;max-width:52ch;color:rgba(255,255,255,.82);font-size:15px}
+
+  /* ---------- Stemkiezer ---------- */
+  .stembalk{
+    position:sticky;top:0;z-index:20;
+    background:rgba(245,246,249,.94);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--lijn);
+  }
+  .stembalk .wrap{display:flex;align-items:center;gap:14px;padding-top:12px;padding-bottom:12px;flex-wrap:wrap}
+  .stembalk .label{font-size:12px;letter-spacing:.14em;text-transform:uppercase;font-weight:600;opacity:.6}
+  .stemknoppen{display:flex;gap:6px;flex-wrap:wrap}
+  .stem{
+    font-family:var(--font);font-size:14px;font-weight:600;
+    padding:8px 14px;border-radius:999px;cursor:pointer;
+    border:1px solid var(--lijn);background:#fff;color:var(--blauw);
+    transition:background .15s,color .15s,border-color .15s;
+  }
+  .stem:hover{border-color:var(--blauw)}
+  .stem[aria-pressed="true"]{background:var(--blauw);color:#fff;border-color:var(--blauw)}
+
+  /* ---------- Werken ---------- */
+  main{padding:34px 0 10px}
+  .werk{
+    background:#fff;
+    border:1px solid var(--lijn);
+    border-left:5px solid var(--accent);
+    border-radius:14px;
+    padding:24px;
+    margin-bottom:22px;
+  }
+  .werk-kop{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap}
+  .werk h2{margin:0;font-size:23px;font-weight:700;letter-spacing:-.01em}
+  .componist{margin:3px 0 0;font-size:14px;opacity:.65}
+  .bron{display:flex;gap:4px;background:var(--papier);padding:4px;border-radius:999px}
+  .bron button{
+    font-family:var(--font);font-size:13px;font-weight:600;
+    border:0;background:transparent;color:var(--blauw);
+    padding:7px 14px;border-radius:999px;cursor:pointer;opacity:.6;
+  }
+  .bron button[aria-pressed="true"]{background:#fff;opacity:1;box-shadow:0 1px 3px rgba(29,33,66,.16)}
+
+  .tracks{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px}
+  .track{
+    font-family:var(--font);font-size:15px;font-weight:600;
+    display:inline-flex;align-items:center;gap:9px;
+    padding:11px 17px;border-radius:10px;cursor:pointer;
+    border:1px solid var(--lijn);background:#fff;color:var(--blauw);
+    transition:border-color .15s,background .15s,transform .1s;
+  }
+  .track:hover{border-color:var(--accent);transform:translateY(-1px)}
+  .track[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:#fff}
+  .track .dot{width:7px;height:7px;border-radius:50%;background:var(--accent);flex:none}
+  .track[aria-pressed="true"] .dot{background:#fff}
+  .track.piano{font-weight:500;opacity:.9}
+  .track[hidden]{display:none}
+
+  .speler{margin-top:18px}
+  .speler:empty{display:none}
+  .speler .nu{font-size:13px;font-weight:600;letter-spacing:.06em;text-transform:uppercase;opacity:.6;margin:0 0 10px}
+  .kader{position:relative;padding-top:56.25%;border-radius:12px;overflow:hidden;background:var(--blauw-diep)}
+  .kader iframe{position:absolute;inset:0;width:100%;height:100%;border:0}
+  .kader.audio{padding-top:0;height:140px;background:transparent}
+  .leeg{font-size:14px;opacity:.6;margin:18px 0 0}
+  .terugval{font-size:13px;opacity:.65;margin:9px 0 0}
+  .terugval a{color:var(--blauw);text-underline-offset:2px}
+
+  /* ---------- Referentie ---------- */
+  .straks{
+    border:1px dashed var(--lijn);border-radius:14px;padding:22px 24px;
+    margin-bottom:26px;background:transparent;
+  }
+  .straks h2{margin:0 0 6px;font-size:19px;font-weight:600}
+  .straks p{margin:0;font-size:14px;opacity:.7;max-width:56ch}
+
+  footer{border-top:1px solid var(--lijn);padding:22px 0 40px;font-size:13px;opacity:.6}
+
+  :focus-visible{outline:3px solid var(--groen);outline-offset:2px}
+  @media (prefers-reduced-motion:reduce){*{transition:none!important}}
+  @media (max-width:520px){
+    .werk{padding:18px 16px}
+    .track{flex:1 1 calc(50% - 8px);justify-content:center}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="wrap">
+    <p class="eyebrow">Kerstconcert - 13 december</p>
+    <h1>Repetitietracks</h1>
+    <p class="intro">Kies je stem, kies een werk en zing mee. Elke track speelt op deze pagina zelf - je hoeft niets te downloaden.</p>
+  </div>
+  <div class="staff" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></div>
+</header>
+
+<div class="stembalk">
+  <div class="wrap">
+    <span class="label">Mijn stem</span>
+    <div class="stemknoppen" id="stemknoppen" role="group" aria-label="Filter op stem"></div>
+  </div>
+</div>
+
+<main class="wrap" id="werken"></main>
+
+<div class="wrap">
+  <section class="straks">
+    <h2>Referentieopnames</h2>
+    <p>Hier komen later opnames van de drie werken door andere koren, als klankbeeld voor tempo, kleur en frasering.</p>
+  </section>
+</div>
+
+<footer class="wrap">
+  <p>Repetitiepagina voor de koorleden. Vragen of een link die niet werkt? Laat het weten op de repetitie.</p>
+</footer>
+
+<script>
+const YT = "https://www.youtube.com/embed/";
+const YTW = "https://youtu.be/";
+const SCB = "https://soundcloud.com/repetitieruimte_sjk/";
+
+const stemmen = [
+  {id:"alles", naam:"Alles"},
+  {id:"S", naam:"Sopraan"},
+  {id:"A", naam:"Alt"},
+  {id:"T", naam:"Tenor"},
+  {id:"B", naam:"Bas"}
+];
+
+const werken = [
+  {
+    id:"star", titel:"Star Carol", componist:"John Rutter", accent:"var(--geel)",
+    tracks:[
+      {label:"Tutti",   stem:"alles", yt:"Pp5nbYc_ZZw"},
+      {label:"Sopraan", stem:"S", yt:"DH9BdRUaI8A", sc:"star-carol-jrutter-soprano-4"},
+      {label:"Alt",     stem:"A", yt:"VNiJjCs0eMk", sc:"star-carol-jrutter-alto-1"},
+      {label:"Tenor",   stem:"T", yt:"mYHHsoBJUxM", sc:"star-carol-jrutter-tenor-5"},
+      {label:"Bas",     stem:"B", yt:"WNHrIsPq7tk", sc:"star-carol-jrutter-bass-2"},
+      {label:"Piano",   stem:"alles", piano:true, yt:"MQJJSpQy9AE", sc:"star-carol-jrutter-piano-3"}
+    ]
+  },
+  {
+    id:"rose", titel:"The Rose", componist:"Ola Gjeilo", accent:"var(--roze)",
+    tracks:[
+      {label:"Tutti",     stem:"alles", yt:"ur9iALqohPo", sc:"the-rose-ogjeilo-tutti-8"},
+      {label:"Sopraan 1", stem:"S", yt:"b0bI0_3iT8I", sc:"the-rose-ogjeilo-soprano-1-4"},
+      {label:"Sopraan 2", stem:"S", yt:"h-u91Nr3GC8", sc:"the-rose-ogjeilo-soprano-2-5"},
+      {label:"Alt",       stem:"A", yt:"lvSaGtexd68", sc:"the-rose-ogjeilo-alto-1"},
+      {label:"Tenor 1",   stem:"T", yt:"JiOF1-NKmB4", sc:"the-rose-ogjeilo-tenor-1-6"},
+      {label:"Tenor 2",   stem:"T", yt:"jnDBpcHosb4", sc:"the-rose-ogjeilo-tenor-2-7"},
+      {label:"Bas 1",     stem:"B", yt:"oxHS0TpnFKw", sc:"the-rose-ogjeilo-bass-1-2"},
+      {label:"Bas 2",     stem:"B", yt:"tkUfkwCR598", sc:"the-rose-ogjeilo-bass-2-3"}
+    ]
+  },
+  {
+    id:"ground", titel:"The Ground", componist:"Ola Gjeilo", accent:"var(--lichtblauw)",
+    tracks:[
+      {label:"Sopraan", stem:"S", yt:"3BtEeFSZf2Q", sc:"the-ground-ogjeilo-soprano-6"},
+      {label:"Alt 1",   stem:"A", yt:"F12Jtuk2tK8", sc:"the-ground-ogjeilo-alto-1-2"},
+      {label:"Alt 2",   stem:"A", yt:"2CtobC73LbQ", sc:"the-ground-ogjeilo-alto-2-3"},
+      {label:"Tenor 1", stem:"T", yt:"D7ckErlbzPU", sc:"the-ground-ogjeilo-tenor-1-7"},
+      {label:"Tenor 2", stem:"T", yt:"e0gfQGsoASg", sc:"the-ground-ogjeilo-tenor-2-8"},
+      {label:"Bas 1",   stem:"B", yt:"KUdrniM4htY", sc:"the-ground-ogjeilo-bass-1-4"},
+      {label:"Bas 2",   stem:"B", yt:"tn3adWsA9jY", sc:"the-ground-ogjeilo-bass-2-5"},
+      {label:"Piano",   stem:"alles", piano:true, yt:"gB3lqpWJ6IM", sc:"the-ground-ogjeilo-accompniment-1"}
+    ]
+  }
+];
+
+let stemFilter = "alles";
+
+/* Stemkiezer opbouwen */
+const stembar = document.getElementById("stemknoppen");
+stemmen.forEach(s => {
+  const b = document.createElement("button");
+  b.className = "stem";
+  b.type = "button";
+  b.textContent = s.naam;
+  b.setAttribute("aria-pressed", s.id === stemFilter);
+  b.addEventListener("click", () => {
+    stemFilter = s.id;
+    [...stembar.children].forEach(k => k.setAttribute("aria-pressed", k === b));
+    filter();
+  });
+  stembar.appendChild(b);
+});
+
+/* Werken opbouwen */
+const main = document.getElementById("werken");
+werken.forEach(w => {
+  const sec = document.createElement("section");
+  sec.className = "werk";
+  sec.style.setProperty("--accent", w.accent);
+  sec.dataset.werk = w.id;
+  sec.innerHTML = `
+    <div class="werk-kop">
+      <div>
+        <h2>${w.titel}</h2>
+        <p class="componist">${w.componist}</p>
+      </div>
+      <div class="bron" role="group" aria-label="Bron voor ${w.titel}">
+        <button type="button" data-bron="yt" aria-pressed="true">YouTube</button>
+        <button type="button" data-bron="sc" aria-pressed="false">SoundCloud</button>
+      </div>
+    </div>
+    <div class="tracks"></div>
+    <p class="leeg" hidden>Voor deze stem staat bij dit werk geen aparte track klaar. Kies Tutti of piano, of zet je stem op Alles.</p>
+    <div class="speler"></div>
+  `;
+
+  const houder = sec.querySelector(".tracks");
+  w.tracks.forEach((t, i) => {
+    const b = document.createElement("button");
+    b.type = "button";
+    b.className = "track" + (t.piano ? " piano" : "");
+    b.dataset.i = i;
+    b.dataset.stem = t.stem;
+    b.setAttribute("aria-pressed", "false");
+    b.innerHTML = `<span class="dot" aria-hidden="true"></span>${t.label}`;
+    b.addEventListener("click", () => speel(sec, w, t, b));
+    houder.appendChild(b);
+  });
+
+  sec.querySelectorAll(".bron button").forEach(b => {
+    b.addEventListener("click", () => {
+      sec.querySelectorAll(".bron button").forEach(x => x.setAttribute("aria-pressed", x === b));
+      sec.dataset.bron = b.dataset.bron;
+      sec.querySelector(".speler").innerHTML = "";
+      sec.querySelectorAll(".track").forEach(x => x.setAttribute("aria-pressed", "false"));
+      filter();
+    });
+  });
+
+  sec.dataset.bron = "yt";
+  main.appendChild(sec);
+});
+
+/* Speler laden - pas bij klik, zodat de pagina licht blijft */
+function speel(sec, w, t, knop) {
+  const bron = sec.dataset.bron;
+  const speler = sec.querySelector(".speler");
+  sec.querySelectorAll(".track").forEach(x => x.setAttribute("aria-pressed", x === knop));
+
+  if (bron === "yt") {
+    speler.innerHTML = `
+      <p class="nu">${w.titel} - ${t.label}</p>
+      <div class="kader">
+        <iframe src="${YT}${t.yt}?rel=0&playsinline=1" title="${w.titel} - ${t.label}"
+          allow="accelerometer; autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>
+      </div>
+      <p class="terugval">Speler blijft leeg? <a href="${YTW}${t.yt}" target="_blank" rel="noopener">Open deze track op YouTube</a></p>`;
+  } else {
+    const url = encodeURIComponent(SCB + t.sc);
+    speler.innerHTML = `
+      <p class="nu">${w.titel} - ${t.label}</p>
+      <div class="kader audio">
+        <iframe src="https://w.soundcloud.com/player/?url=${url}&color=%231d2142&auto_play=false&hide_related=true&show_comments=false&show_user=false&show_reposts=false&visual=false"
+          title="${w.titel} - ${t.label}" allow="autoplay"></iframe>
+      </div>
+      <p class="terugval">Speler blijft leeg? <a href="${SCB}${t.sc}" target="_blank" rel="noopener">Open deze track op SoundCloud</a></p>`;
+  }
+  speler.scrollIntoView({behavior:"smooth", block:"nearest"});
+}
+
+/* Filteren op stem en op beschikbaarheid per bron */
+function filter() {
+  document.querySelectorAll(".werk").forEach(sec => {
+    const w = werken.find(x => x.id === sec.dataset.werk);
+    const bron = sec.dataset.bron;
+    let zichtbaar = 0;
+    sec.querySelectorAll(".track").forEach(b => {
+      const t = w.tracks[b.dataset.i];
+      const heeft = bron === "yt" ? !!t.yt : !!t.sc;
+      const past = stemFilter === "alles" || t.stem === stemFilter || t.stem === "alles";
+      const toon = heeft && past;
+      b.hidden = !toon;
+      if (toon && t.stem !== "alles") zichtbaar++;
+    });
+    sec.querySelector(".leeg").hidden = !(stemFilter !== "alles" && zichtbaar === 0);
+  });
+}
+
+filter();
+</script>
+</body>
+</html>
