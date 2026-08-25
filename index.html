@@ -3,6 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow, noarchive, noimageindex">
+<meta name="googlebot" content="noindex, nofollow">
 <title>Repetitietracks - Kerstconcert 13 december</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -84,7 +86,7 @@
 <body>
 
 <header>
-  <p class="versie">v2608-01</p>
+  <p class="versie">v2608-03</p>
   <div class="wrap">
     <p class="eyebrow">Kerstconcert - 13 december</p>
     <h1>Repetitietracks</h1>
@@ -216,8 +218,20 @@ const werken = [
 
 const extra = [
   {
-    id:"lully", titel:"Lully, Lulla, Lullay", componist:"referentieopname", accent:GEEL, op:"#1A1A1A",
+    id:"gabriel", titel:"Gabriel's Message", componist:"D. Decae", accent:GROEN,
+    tracks:[{label:"Referentieopname", stem:"alles", bij:true, ref:true,
+      scEmbed:"https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/soundcloud%3Atracks%3A2387873688%3Fsecret_token%3Ds-2UMU2AnGZWW&color=%2300AFC2&auto_play=false&hide_related=true&show_comments=false&show_user=false&show_reposts=false&visual=false",
+      scLink:"https://soundcloud.com/repetitieruimte_sjk/gabriels-message/s-2UMU2AnGZWW"}]
+  },
+  {
+    id:"lully", titel:"Lully, Lulla, Lullay", componist:"Philip Stopford", accent:GEEL, op:"#1A1A1A",
     tracks:[{label:"Referentieopname", stem:"alles", bij:true, ref:true, yt:"Cte1DONjr24"}]
+  },
+  {
+    id:"unto", titel:"Unto Us", componist:"D. Decae", accent:CYAAN,
+    tracks:[{label:"Referentieopname", stem:"alles", bij:true, ref:true,
+      scEmbed:"https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/soundcloud%3Atracks%3A2387872866%3Fsecret_token%3Ds-3eYuwkJW07R&color=%2300AFC2&auto_play=false&hide_related=true&show_comments=false&show_user=false&show_reposts=false&visual=false",
+      scLink:"https://soundcloud.com/repetitieruimte_sjk/unto-us-d-decae/s-3eYuwkJW07R"}]
   }
 ];
 
@@ -295,7 +309,7 @@ bouw(werken, "werken", true);
 bouw(extra, "extra", false);
 
 function speel(sec, w, t, knop) {
-  const bron = sec.dataset.bron === "sc" && t.sc ? "sc" : "yt";
+  const bron = t.scEmbed ? "embed" : (sec.dataset.bron === "sc" && t.sc ? "sc" : "yt");
   const speler = sec.querySelector(".speler");
   document.querySelectorAll(".speler").forEach(p => { if (p !== speler) p.innerHTML = ""; });
   document.querySelectorAll(".track").forEach(x => x.setAttribute("aria-pressed", "false"));
@@ -309,6 +323,13 @@ function speel(sec, w, t, knop) {
           allow="accelerometer; autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>
       </div>
       <p class="terugval">Speler blijft leeg? <a href="${YTW}${t.yt}" target="_blank" rel="noopener">Open deze track op YouTube</a></p>`;
+  } else if (bron === "embed") {
+    speler.innerHTML = `
+      <p class="nu">${w.titel} - ${t.label}</p>
+      <div class="kader audio">
+        <iframe src="${t.scEmbed}" title="${w.titel} - ${t.label}" allow="autoplay"></iframe>
+      </div>
+      <p class="terugval">Speler blijft leeg? <a href="${t.scLink}" target="_blank" rel="noopener">Open deze track op SoundCloud</a></p>`;
   } else {
     const url = encodeURIComponent(SCB + t.sc);
     speler.innerHTML = `
@@ -329,7 +350,7 @@ function filter() {
     let zichtbaar = 0;
     sec.querySelectorAll(".track").forEach(b => {
       const t = w.tracks[b.dataset.i];
-      const heeft = bron === "yt" ? !!t.yt : (!!t.sc || t.ref);
+      const heeft = bron === "yt" ? (!!t.yt || !!t.scEmbed) : (!!t.sc || t.ref);
       const past = stemFilter === "alles" || t.stem === stemFilter || t.stem === "alles";
       const toon = heeft && past;
       b.hidden = !toon;
