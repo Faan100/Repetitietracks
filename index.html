@@ -298,7 +298,9 @@ bouw(extra, "extra", false);
 function speel(sec, w, t, knop) {
   const bron = sec.dataset.bron === "sc" && t.sc ? "sc" : "yt";
   const speler = sec.querySelector(".speler");
-  sec.querySelectorAll(".track").forEach(x => x.setAttribute("aria-pressed", x === knop));
+  document.querySelectorAll(".speler").forEach(p => { if (p !== speler) p.innerHTML = ""; });
+  document.querySelectorAll(".track").forEach(x => x.setAttribute("aria-pressed", "false"));
+  knop.setAttribute("aria-pressed", "true");
 
   if (bron === "yt") {
     speler.innerHTML = `
