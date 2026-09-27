@@ -86,7 +86,7 @@
 <body>
 
 <header>
-  <p class="versie">v2609-06</p>
+  <p class="versie">v2609-08</p>
   <div class="wrap">
     <p class="eyebrow">Kerstconcert - 13 december</p>
     <h1>Repetitietracks</h1>
@@ -119,6 +119,8 @@
 const YT = "https://www.youtube.com/embed/";
 const YTW = "https://youtu.be/";
 const SCB = "https://soundcloud.com/repetitieruimte_sjk/";
+const SCU = "https%3A//soundcloud.com/repetitieruimte_sjk/";
+const SCA = "https%3A//api.soundcloud.com/tracks/soundcloud%3Atracks%3A";
 
 const CYAAN = "#00AFC2", GROEN = "#009A77", GEEL = "#fbbb21";
 
@@ -134,16 +136,16 @@ const werken = [
   {
     id:"gabriel", titel:"Gabriel's Message", componist:"D. Decae", accent:GROEN,
     tracks:[
-      {label:"Tutti",         stem:"alles", sc:"gabriels-message-ddecae-tutti-10", tok:"s-fWZgjC1C5Eu"},
-      {label:"Tutti traag",   stem:"alles", sc:"gabriels-message-ddecae-tutti-traag-9", tok:"s-cp9jEZfFyVt"},
-      {label:"Sopraan",       stem:"S", sc:"gabriels-message-ddecae-sopraan-6", tok:"s-9DT5gKDQg4R"},
-      {label:"Sopraan traag", stem:"S", sc:"gabriels-message-ddecae-sopraan-traag-5", tok:"s-0FlFLcRuRkU"},
-      {label:"Alt",           stem:"A", sc:"gabriels-message-ddecae-alt-2", tok:"s-9GeZNfBtPo0"},
-      {label:"Alt traag",     stem:"A", sc:"gabriels-message-ddecae-alt-traag-1", tok:"s-sVllCi4jR86"},
-      {label:"Tenor",         stem:"T", sc:"gabriels-message-ddecae-tenor-8", tok:"s-tRuX0XObiqX"},
-      {label:"Tenor traag",   stem:"T", sc:"gabriels-message-ddecae-tenor-traag-7", tok:"s-ir9kTlAXP67"},
-      {label:"Bas",           stem:"B", sc:"gabriels-message-ddecae-bas-4", tok:"s-nzB7UO9bGpd"},
-      {label:"Bas traag",     stem:"B", sc:"gabriels-message-ddecae-bas-traag-3", tok:"s-mwsYrJ7OG7n"},
+      {label:"Tutti",         stem:"alles", sc:"gabriels-message-ddecae-tutti-10", tok:"s-fWZgjC1C5Eu", id:"2408503680"},
+      {label:"Tutti traag",   stem:"alles", sc:"gabriels-message-ddecae-tutti-traag-9", tok:"s-cp9jEZfFyVt", id:"2408503686"},
+      {label:"Sopraan",       stem:"S", sc:"gabriels-message-ddecae-sopraan-6", tok:"s-9DT5gKDQg4R", id:"2408503695"},
+      {label:"Sopraan traag", stem:"S", sc:"gabriels-message-ddecae-sopraan-traag-5", tok:"s-0FlFLcRuRkU", id:"2408503683"},
+      {label:"Alt",           stem:"A", sc:"gabriels-message-ddecae-alt-2", tok:"s-9GeZNfBtPo0", id:"2408503692"},
+      {label:"Alt traag",     stem:"A", sc:"gabriels-message-ddecae-alt-traag-1", tok:"s-sVllCi4jR86", id:"2408503701"},
+      {label:"Tenor",         stem:"T", sc:"gabriels-message-ddecae-tenor-8", tok:"s-tRuX0XObiqX", id:"2408503698"},
+      {label:"Tenor traag",   stem:"T", sc:"gabriels-message-ddecae-tenor-traag-7", tok:"s-ir9kTlAXP67", id:"2408503677"},
+      {label:"Bas",           stem:"B", sc:"gabriels-message-ddecae-bas-4", tok:"s-nzB7UO9bGpd", id:"2408503674"},
+      {label:"Bas traag",     stem:"B", sc:"gabriels-message-ddecae-bas-traag-3", tok:"s-mwsYrJ7OG7n", id:"2408503689"},
       {label:"Referentieopname", stem:"alles", bij:true, ref:true,
         scEmbed:"https://w.soundcloud.com/player/?url=https%3A//api.soundcloud.com/tracks/soundcloud%3Atracks%3A2387873688%3Fsecret_token%3Ds-2UMU2AnGZWW&color=%2300AFC2&auto_play=false&hide_related=true&show_comments=false&show_user=false&show_reposts=false&visual=false",
         scLink:"https://soundcloud.com/repetitieruimte_sjk/gabriels-message/s-2UMU2AnGZWW"}
@@ -352,7 +354,7 @@ function speel(sec, w, t, knop) {
       <p class="terugval">Speler blijft leeg? <a href="${t.scLink}" target="_blank" rel="noopener">Open deze track op SoundCloud</a></p>`;
   } else {
     const pad = t.sc + (t.tok ? "/" + t.tok : "");
-    const url = encodeURIComponent(SCB + pad);
+    const url = t.id ? SCA + t.id + "%3Fsecret_token%3D" + t.tok : SCU + pad;
     speler.innerHTML = `
       <p class="nu">${w.titel} - ${t.label}</p>
       <div class="kader audio">
